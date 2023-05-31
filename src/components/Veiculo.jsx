@@ -10,6 +10,10 @@ import { useEffect, useState } from "react";
 import { Button, Form, Table } from 'react-bootstrap';
 import styles from './Veiculo.module.css'
 import api from '../services/api.js'
+import { FiTrash } from 'react-icons/fi';
+import { FiEdit2 } from 'react-icons/fi';
+
+
 
 function Veiculo() {
   let [veiculos, setVeiculos] = useState([]);
@@ -17,6 +21,7 @@ function Veiculo() {
   marca:'',
   modelo:'',
   ano:''});
+  let [placaVeiculo, setPlacaVeiculo] = useState(null);
 
 
   useEffect(()=>{
@@ -28,14 +33,27 @@ function Veiculo() {
   }
 
   async function salvar() {
-    console.log(veiculo);
-      const resposta = await api.post('/veiculos', veiculo)
+    if(placaVeiculo){
+      await api.put(`/veiculos/${placaVeiculo}`, veiculo)
       .catch((error)=>{
         alert(error.response.data);
       });
-      buscarVeiculos();
+    }else{
+      await api.post('/veiculos', veiculo)
+      .catch((error)=>{
+        alert(error.response.data);
+      });
+    }
+    buscarVeiculos();
        
     limparForm()
+  }
+
+  
+
+   function prepararEditar(veiculo){
+    setVeiculo({...veiculo});
+    setPlacaVeiculo(veiculo.placa);
   }
 
   async function excluir(veiculo) {
@@ -56,7 +74,9 @@ function Veiculo() {
       marca:'',
       modelo:'',
       ano:''
-    })
+    });
+    setPlacaVeiculo(null);
+
   }
 
   return (
@@ -115,9 +135,10 @@ function Veiculo() {
               <td>{veiculo.placa}</td>
                 <td>{veiculo.marca}</td>
                 <td>{veiculo.modelo}</td>
-                <td>{veiculo.ano}</td>
+                <td>{veiculo.ano} </td>
                 <td>
-                  <Button onClick={()=>{excluir(veiculo)}}>x</Button>
+                  <Button onClick={()=>{excluir(veiculo)}}> <FiTrash /></Button>
+                  <Button onClick={()=>{prepararEditar(veiculo)}}><FiEdit2 /></Button>
                 </td>
               </tr>
             );

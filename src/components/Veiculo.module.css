@@ -15,6 +15,11 @@
   background-color: var(--green-500);
   border: none;
 }
+
+.main table button {
+  width: 35px;
+  margin-left: 5px;
+}
 .main table {
   max-width: 500px;
 }
