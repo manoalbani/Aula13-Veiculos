@@ -115,7 +115,8 @@ function Veiculo() {
         aria-label="Ano"
         aria-describedby="basic-addon1"
       />
-      <Button onClick={salvar}>Salvar</Button>
+      <Button onClick={salvar}>{placaVeiculo?'Editar':'Salvar'}</Button>
+      <Button onClick={limparForm}>Limpar</Button>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
