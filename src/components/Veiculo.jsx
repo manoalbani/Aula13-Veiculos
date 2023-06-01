@@ -20,8 +20,7 @@ function Veiculo() {
   let [veiculo, setVeiculo] = useState({placa:'',
   marca:'',
   modelo:'',
-  ano:'',
-  id:null
+  ano:''
 });
 
 
@@ -74,8 +73,7 @@ function Veiculo() {
       placa:'',
       marca:'',
       modelo:'',
-      ano:'',
-      id:null
+      ano:''
     });
     
 
