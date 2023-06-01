@@ -20,8 +20,9 @@ function Veiculo() {
   let [veiculo, setVeiculo] = useState({placa:'',
   marca:'',
   modelo:'',
-  ano:''});
-  let [placaVeiculo, setPlacaVeiculo] = useState(null);
+  ano:'',
+  id:null
+});
 
 
   useEffect(()=>{
@@ -33,8 +34,8 @@ function Veiculo() {
   }
 
   async function salvar() {
-    if(placaVeiculo){
-      await api.put(`/veiculos/${placaVeiculo}`, veiculo)
+    if(veiculo.id){
+      await api.put(`/veiculos/${veiculo.placa}`, veiculo)
       .catch((error)=>{
         alert(error.response.data);
       });
@@ -73,9 +74,10 @@ function Veiculo() {
       placa:'',
       marca:'',
       modelo:'',
-      ano:''
+      ano:'',
+      id:null
     });
-    setPlacaVeiculo(null);
+    
 
   }
 
@@ -89,6 +91,7 @@ function Veiculo() {
         placeholder="Placa"
         aria-label="Placa"
         aria-describedby="basic-addon1"
+        disabled={veiculo.id}
       />
       <Form.Control
         value={veiculo.marca}
@@ -115,7 +118,7 @@ function Veiculo() {
         aria-label="Ano"
         aria-describedby="basic-addon1"
       />
-      <Button onClick={salvar}>{placaVeiculo?'Editar':'Salvar'}</Button>
+      <Button onClick={salvar}>{veiculo.id?'Editar':'Salvar'}</Button>
       <Button onClick={limparForm}>Limpar</Button>
       <Table striped bordered hover variant="dark">
         <thead>
