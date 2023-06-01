@@ -31,6 +31,7 @@ function Veiculo() {
   async function buscarVeiculos(){
     const resposta = await api.get('/veiculos');
     setVeiculos(resposta.data);
+    veiculos.find
   }
 
   async function salvar() {
@@ -54,7 +55,6 @@ function Veiculo() {
 
    function prepararEditar(veiculo){
     setVeiculo({...veiculo});
-    setPlacaVeiculo(veiculo.placa);
   }
 
   async function excluir(veiculo) {
